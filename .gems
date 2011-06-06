@@ -1,0 +1,4 @@
+sinatra
+sinatra-jsonp
+mongo
+bson_ext

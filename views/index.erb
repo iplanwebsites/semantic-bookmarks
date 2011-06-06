@@ -1,0 +1,19 @@
+<h1>YASI's</h1>
+<% if @yasis %>
+<ul style="list-style-type:none">
+	<% @yasis.each do |yasi| %>
+		<li style="border: 1px solid #000000;width: 450px; padding: 5px"><h2><%= yasi["title"] %></h2>
+		<p><h3><%= yasi["category"] %></h3>
+		<%= yasi["description"].gsub(/\r\n/,"<br />") %>
+		</p>
+		<a href="/delete/<%= yasi["_id"] %>">delete</a></li>
+	<% end 
+		else %>
+		No Stupid Ideas Yet
+<% end %>
+</ul>
+
+<div>
+	<a href="/new">Add New</a>
+</div>
+
