@@ -90,6 +90,11 @@ a:hover { color: #036; }
 
 
 
+#settings{ position: absolute; opacity:0;}
+#settings.show{ position: absolute; opacity:1;}
+
+
+
 
 
 

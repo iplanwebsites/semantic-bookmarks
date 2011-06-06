@@ -1,0 +1,6 @@
+<div class="item">
+        <div class="item-image"><img src="<%= item.u %>" alt="<%= item.u %>" /></div>
+        <div class="item-artist"><%= item.d %></div>
+        <div class="item-title"><%= item.t %></div>
+        <div class="item-price"><a href="cleanDomain(item.u) "><%= cleanDomain(item.u) %></a></div>
+      </div>
