@@ -30,6 +30,17 @@ require "sinatra-authentication"
 # http://teachmetocode.com/screencasts/introduction-to-mongodb-part-ii/
 # http://rubygems.org/gems/sinatra-mongo
 
+
+# mongo connection...
+#uri =  URI.parse(ENV['MONGOHQ_URL'])
+#@mongo_connection = Mongo::Connection.from_uri( uri )
+#@mongo_db.authenticate(uri.user, uri.password)
+
+
+
+
+
+
 get '/' do
   "Hello World! <a href='/lol'>Laugh page</a>"
 end
