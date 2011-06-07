@@ -17,7 +17,9 @@ function throttle(fn, delay) {
 
 function cleanDomain(u){
     s = u;
+    s = s.replace('https://www.', '');
     s = s.replace('http://www.', '');
+    s = s.replace('https://', '');
     s = s.replace('http://', '');
     s = s.substr(0, s.indexOf('/'));
     return s;
