@@ -24,13 +24,20 @@
 
   <div id="container">
     <header>
-		<a href="#/"><h1>semantic bookmarks</h1></a>
-		<h3>Retrieve & Discover</h3>
+		
+		<a href="#/" id="logo">
+			<h1>favs</h1>
+		</a>
+		
 		<form action="#/search"  method="post">
-			<input name="q" id="q" placeholder="Search Bookmarks and History" />
-			<input type="submit" value="Add to Cart" />
+			<input name="q" id="q" placeholder="enter keywords or a url" />
 		</form>
-		<a href="#/settings">settings</a>
+		
+		<a href="#/settings" id="bt_setting">
+			<img src="img/settings_gear.png">
+			<span>settings</span>
+		</a>
+		<div class="hr"></div>
     </header>
 	
     <div id="main" role="main">
