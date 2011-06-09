@@ -99,8 +99,8 @@ header .hr{ border-bottom: 1px dashed #ccc; clear:both; padding-top:30px; color:
 #logo:hover { background: #ff5f6a; }
 #logo:active { margin-top: 1px; background: #ff7799; }
 #q{ width:50%; height:60px; float:left; font-size:40px; margin-left:10%; margin-top:24px; 
-    padding: 5px 20px 5px 20px;  border: 1px solid #999; color:#aaa;
-    box-shadow: 3px 3px 6px #ccc; }
+    padding: 5px 20px 5px 20px;  border: 1px solid #ccc; color:#aaa;
+    box-shadow: 3px 3px 18px #ccc; }
 #bt_setting{ float:right;  margin-top:12px; text-align:center; text-decoration: none;
              padding:10px; opacity:0.5;}
 #bt_setting:hover{background: #fff; opacity:1; }
