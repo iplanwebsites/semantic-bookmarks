@@ -87,7 +87,7 @@ a:hover { color: #036; }
 
 
 
-
+em{ font-style:italic;}
 body{ background: #f3f3f3;}
 header{ padding-left:40px; padding-top:30px; padding-right:40px; }
 header .hr{ border-bottom: 1px dashed #ccc; clear:both; padding-top:30px; color:#f3f3f3;}
@@ -100,10 +100,13 @@ header .hr{ border-bottom: 1px dashed #ccc; clear:both; padding-top:30px; color:
 #logo:hover { background: #ef2576; }
 #logo:active { margin-top: 1px; margin-bottom:-1px; background: #ff7799; }
 
-#q{ width:50%; height:60px; float:left; font-size:40px; margin-left:10%; margin-top:24px; 
-    padding: 5px 20px 5px 20px;  border: 1px solid #ccc; color:#aaa;
-    box-shadow: 3px 3px 18px #ccc;
+#search_form{float:left; width:50%; margin-left:10%; margin-top:24px; }
+#search_form span{ display:block; color:#aaa; margin-top:4px;}
+#search_form #q{  height:60px;  font-size:40px;   
+    padding: 5px 10px 5px 30px;  border: 1px solid #ccc; color:#aaa;
+    box-shadow: 3px 3px 18px #ddd;
     -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+    
 #bt_setting{ float:right;  margin-top:15px; text-align:center; text-decoration: none;
              padding:10px; opacity:0.5; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;}
 #bt_setting:hover{background: #fff; opacity:1; }
