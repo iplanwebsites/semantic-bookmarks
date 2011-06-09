@@ -29,6 +29,17 @@ function cleanDomain(u){
 
 $(document).ready(function() {
     
+    
+    
+    /*
+    TODO: ovveride the form submit function in JS.
+    Posting to a sammy function clear the fields, trigger a page refresh, etc...
+    (not smooth now... )
+    
+    */
+    
+    
+    
 
 // initialize the application
     sammy = Sammy('#main', function() {
