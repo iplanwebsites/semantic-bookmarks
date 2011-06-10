@@ -114,11 +114,11 @@ header .hr{ border-bottom: 1px dashed #ccc; clear:both; padding-top:30px; color:
     padding: 5px 10px 5px 30px;  border: 1px solid #ccc; color:#aaa;
     box-shadow: 3px 3px 18px #ddd;
     	-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;
-			-webkit-transition: all 1s ease-in-out;
-			-moz-transition: all 1s ease-in-out;
-			-o-transition: all 1s ease-in-out;
-			-ms-transition: all 1s ease-in-out;
-			transition: all 1s ease-in-out;
+			-webkit-transition: all 0.2s ease-in-out;
+			-moz-transition: all 0.2s ease-in-out;
+			-o-transition: all 0.2s ease-in-out;
+			-ms-transition: all 0.2s ease-in-out;
+			transition: all 0.2s ease-in-out;
 		}
 
 #search_form.is_url #q{ color: #00f; text-decoration:underline; }

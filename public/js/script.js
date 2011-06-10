@@ -43,25 +43,6 @@ function isUrl(s) {
 $(document).ready(function() {
     
 
-	$('#search_form').submit(function(event) {
-	event.preventDefault(); //so the form doesn't submit.
-	//var self = this;
-	;
-	str = $('#q').val();
-	if(isUrl(str)){
-		// addUrl(cleanDomain(str));
-		// we should  redirect to "#!/add/domain.com" so sammy.js routes can take over?
-	}else{ //if not a valid url it's either keywords filtering, or an incomplete Url...
-		// do a regular search.
-		// we update the hash only on submit...
-		// on keypress, we don't (it would really pollute the history stack...)
-
-	}
-
-	});
-	
-	
-	
 	/*
 	On keypress,
 		we can't add a URL directly once we detect something that looks like an URL.
@@ -109,6 +90,8 @@ $(document).ready(function() {
   
           
     this.get('#/settings', function() {  
+							 $('.activePage').removeClass('activePage show');
+							 $('#settings').addClass('show activePage');
                $('#settings').addClass('show');
 
            });
@@ -138,11 +121,39 @@ $(document).ready(function() {
     
     //bind an hashchange on the search-field change?
 		
+		
+		$('#search_form').submit(function(event) {
+			event.preventDefault(); //so the form doesn't submit.
+			//var self = this;
+			str = $('#q').val();
+			if(isUrl(str)){
+				// addUrl(cleanDomain(str));
+				// we should  redirect to "#!/add/domain.com" so sammy.js routes can take over?
+			}else{ //if not a valid url it's either keywords filtering, or an incomplete Url...
+				// do a regular search.
+				// we update the hash only on submit...
+				// on keypress, we don't (it would really pollute the history stack...)
+			//	sammy.redirect('#/search/'+str);
+			}
+		});
+		
+		
 		$('#q').bind('keypress keyup change focus click', function() {
-			//check if it's a URL...
-			//change style accordingly...
+			
+			//Unselect showed "modal pages", like settings, when someone fiddle with the txtfield.
+			// $('.activePage').removeClass('activePage show');
+			// instead: run the #/ page... so the history is preserved...
+			// for complex search/filter?
+			
+			//if there's an active page...
+			if($('.activePage').length > 0){
+				//then se set back the URL to search.
+				//the search function will clear any modal-pages.
+			}
+			
+			
 			var str = $(this).val();
-			if( isUrl( str ) ) {
+			if( isUrl( str ) ) {	//check if it's a URL... //change style accordingly...
 				$(this).parent().addClass('is_url'); //we attach a special class to the form element
 			}else{
 				$(this).parent().removeClass('is_url');
