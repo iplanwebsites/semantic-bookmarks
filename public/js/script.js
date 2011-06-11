@@ -2,6 +2,8 @@
 
 */
 
+debug = true;
+
 function throttle(fn, delay) {
   var timer = null;
   return function () {
@@ -65,106 +67,140 @@ $(document).ready(function() {
     
 
 // initialize the application
-    sammy = Sammy('#main', function() {
-  // include a plugin
-  //this.use('Mustache');
-  this.use('Template');
+sammy = Sammy('#main', function() {
+  this.use('Template'); //this.use('Mustache');
   
-  
+	// HOME
     this.get('#/', function(context) {
-            $.ajax({
-              url: 'js/delicious.json', //won't work locally, be sure to run this unsing test server...
-              dataType: 'json',
-              success: function(items) {
-                  //alert('yay');
-                $.each(items, function(i, item) {
-                  context.log(item.d, '-', item.t, '-', item.u);
-                  //context.partial('templates/link.template');
-                  context.render('templates/link.template', {item: item})
-                                 .appendTo(context.$element());
-                                 
-                });
-              }
-            });
-          });
+					$('.activePage').removeClass('activePage show'); //removes the selected page...
+
+					//Todo: only load Ajax if it's not already there...
+					this.trigger('load-ajax');
+					this.trigger('show-page', {page: 'links'});
+		}); //end "get #/"
   
-          
+    //Settings
     this.get('#/settings', function() {  
-							 $('.activePage').removeClass('activePage show');
+							/* $('.activePage').removeClass('activePage show');
 							 $('#settings').addClass('show activePage');
-               $('#settings').addClass('show');
+               $('#settings').addClass('show'); */
+							this.trigger('show-page', {page: 'settings'});
 
            });
-  
-    this.post('#/search', function(context) { 
-        var key = this.params['q'];
-        console.log('searching '+key);
-        this.trigger('filterResults');
-        return false;
-      });
-      
-    this.post('#/cart', function(context) {
-        this.log("I'm in a post route. Add me to your cart");
-    });
-            
-      
+
+
+		//EVENT: Load Ajax
+		this.bind('load-ajax', function(e, data) {
+						var context=this;
+						$.ajax({
+	              url: 'js/delicious.json', //won't work locally, be sure to run this unsing test server...
+	              dataType: 'json',
+	              success: function(items) {
+	                $.each(items, function(i, item) {
+	                  // context.log(item.d, '-', item.t, '-', item.u);
+	                  //context.partial('templates/link.template');
+										
+										
+										context.linkContainer = context.$element('#links');
+										$(context.linkContainer).html('');
+	                  context.render('templates/link.template', {item: item})
+	                                 .appendTo(context.linkContainer).then(function(content) {
+																			context.trigger('filter-item'); //if field is already populated (page refresh)
+																	});
+	                });
+	              }
+	            }); //end AJax load.
+		  });
+	
+	
+			this.bind('reload-server', function(e, data) {
+					//	var context=this;
+						this.log('contacting server');
+		  });
+		
+			//EVENT: show page.
+			this.bind('show-page', function(e, data) {
+						var context=this;
+						pageId = data['page'];
+						
+						//if we link to main filter, and if there's an other active page (pop-up), redirect to home!
+						if((pageId =='links') && ($('.activePage').attr('id') != "links")){
+							 location.replace('#/');
+						}
+						
+						if(pageId != $('.activePage').attr('id')){ //if we want a different page than the curent one.
+						 $('.activePage').removeClass('activePage show');
+						 $('#'+pageId).addClass('show activePage');
+             $('#'+pageId).addClass('show');
+						}
+						
+		  });
+		
+			//EVENT: filter item.
+			this.bind('filter-item', function(e, data) {
+					var context=this;
+					str = $('#q').val();
+					
+					//decorate URL
+					if( isUrl( str ) ) {	//check if it's a URL... //change style accordingly...
+						$(this).parent().addClass('is_url'); //we attach a special class to the form element
+					}else{
+						$(this).parent().removeClass('is_url');
+					}
+					
+					if(str.length == 0){
+						$('#search_form .clear-val').removeClass('show');
+					}else{
+						$('#search_form .clear-val').addClass('show');
+					}
+
+					//TODO: using another throttle technique, we can contact the server...
+										
+					//if this.countain (the text...), maybe use a regEx?
+					$("div.item:not(:contains('"+str+"'))").addClass('out');
+					$("div.item:contains('"+str+"')").removeClass('out');
+
+			}); // /filter-items
+			
+			
     
 });// end sammy defs
 
 
     // start the application
+ 		sammy.run('#/');
+    
 
-    sammy.run('#/');
-    
-    
-    
-    
-    //bind an hashchange on the search-field change?
 		
 		
-		$('#search_form').submit(function(event) {
-			event.preventDefault(); //so the form doesn't submit.
-			//var self = this;
-			str = $('#q').val();
-			if(isUrl(str)){
-				// addUrl(cleanDomain(str));
-				// we should  redirect to "#!/add/domain.com" so sammy.js routes can take over?
-			}else{ //if not a valid url it's either keywords filtering, or an incomplete Url...
-				// do a regular search.
-				// we update the hash only on submit...
-				// on keypress, we don't (it would really pollute the history stack...)
-			//	sammy.redirect('#/search/'+str);
-			}
+// Button Erase search field
+		$('#search_form .clear-val').bind('click', function() {
+				$('#q').val('').focus();
+				sammy.trigger('filter-item');
 		});
 		
-		
-		$('#q').bind('keypress keyup change focus click', function() {
-			
-			//Unselect showed "modal pages", like settings, when someone fiddle with the txtfield.
-			// $('.activePage').removeClass('activePage show');
-			// instead: run the #/ page... so the history is preserved...
-			// for complex search/filter?
-			
-			//if there's an active page...
-			if($('.activePage').length > 0){
-				//then se set back the URL to search.
-				//the search function will clear any modal-pages.
-			}
-			
-			
-			var str = $(this).val();
-			if( isUrl( str ) ) {	//check if it's a URL... //change style accordingly...
-				$(this).parent().addClass('is_url'); //we attach a special class to the form element
-			}else{
-				$(this).parent().removeClass('is_url');
-			}
-	
-			//this is the part we don't want to execute too often
-			throttle(function (event) {
-        //update search feed.
-        this.trigger('filterResults');
-    	}, 250);
+//Form submit
+				$('#search_form').submit(function(event) {
+					event.preventDefault(); 
+					sammy.trigger('show-page', {page: 'links'});
 
+					str = $('#q').val();
+					if( isUrl( str ) ) {	//check if it's a URL... //change style accordingly...
+						sammy.trigger('add-url');//add URL
+					}else{
+						//maybe query the server? (it's submitted...)
+						//sammy.trigger('reload-server');
+						sammy.trigger('filter-item');
+					}
+				});
+				
+//Keypress txt-field
+$('#q').bind('keypress keyup change focus click', function() {
+	sammy.trigger('filter-item');
+	sammy.trigger('show-page', {page: 'links'});
+			throttle(function (event) {
+				
+    	}, 150);
 });
     
     

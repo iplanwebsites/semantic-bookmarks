@@ -97,19 +97,35 @@ body{ background: #f3f3f3;}
 =============================================================
 */
 
-header{ padding-left:40px; padding-top:30px; padding-right:40px; }
-header .hr{ border-bottom: 1px dashed #ccc; clear:both; padding-top:30px; color:#f3f3f3;}
-#settings{ position: absolute; opacity:0;}
-#settings.show{ position: absolute; opacity:1;}
+header{ padding-left:20px; padding-top:30px; padding-right:20px; }
+header .hr{ border-bottom: 1px dashed #ccc; clear:both; padding-top:30px; 
+	color:#f3f3f3; margin-bottom:10px;}
 
-#logo{ height: 80px; width:120px; font-size:30px; float:left; background:#ff5f6a; 
+
+#logo{ margin-left:20px; height: 80px; width:120px; font-size:30px; float:left; background:#ff5f6a; 
     text-align:center; -webkit-border-radius: 5em; -moz-border-radius: 5em; border-radius: 5em;}
 #logo{ text-decoration:none; color:#fff; padding-top:40px;}
 #logo:hover { background: #ef2576; }
 #logo:active { margin-top: 1px; margin-bottom:-1px; background: #ff7799; }
 
-#search_form{float:left; width:50%; margin-left:10%; margin-top:24px; }
+#search_form{float:left; width:50%; margin-left:10%; margin-top:24px;  }
 #search_form span{ display:block; color:#aaa; margin-top:4px;}
+#search_form .clear-val{ 
+	background:#ccc; width:37px; height:37px; position:relative; 
+	float:right; margin-bottom:-97px;  margin-right:-30px; margin-top:15px; 
+	font-size:28px;
+	opacity:0;
+	-webkit-border-radius: 45px; -moz-border-radius: 45px; border-radius: 55px; 
+	text-align:center;  color:#fff;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	cursor:text;
+	}
+		#search_form .clear-val.show:hover{opacity:1; background:#777; cursor:pointer; }
+	#search_form .clear-val.show{opacity:1;}
 #search_form #q{ width:100%; height:60px;  font-size:40px;   
     padding: 5px 10px 5px 30px;  border: 1px solid #ccc; color:#aaa;
     box-shadow: 3px 3px 18px #ddd;
@@ -119,8 +135,14 @@ header .hr{ border-bottom: 1px dashed #ccc; clear:both; padding-top:30px; color:
 			-o-transition: all 0.2s ease-in-out;
 			-ms-transition: all 0.2s ease-in-out;
 			transition: all 0.2s ease-in-out;
+			outline: none;
+		 
+			
 		}
 
+#search_form #q:focus{color:#000;
+	box-shadow: 0px 0px 3px #f00;
+	} 
 #search_form.is_url #q{ color: #00f; text-decoration:underline; }
 /* if we ever feel it's necessary to add a button, that's the way to do it...*/
 #search_form.is_url #bt_add_url{ opacity:1; } 
@@ -132,7 +154,7 @@ header .hr{ border-bottom: 1px dashed #ccc; clear:both; padding-top:30px; color:
 #bt_setting span{  display:block; color:#000; margin-top:-7px;}
 
 
-
+.show{ opacity:1; }
 
 /*
 						MAIN CONTENT
@@ -140,12 +162,53 @@ header .hr{ border-bottom: 1px dashed #ccc; clear:both; padding-top:30px; color:
 */
 
 
+.item{ width: 200px; height:300px; float:left; background:#fff; margin-left:10px; opacity:1;
+	padding:2px;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	overflow:hidden;
+}
+.item.out{ opacity:0; height:0px; color:#fff;}
+
+
+
+/*
+						Settings PAGES
+=============================================================
+*/
+
+
+#settings{ position: absolute; opacity:0; 
+	width:1%; background: rgba(0,0,0,0.8); color: #fff; 
+	padding:2%;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	}
+#settings.show{ position: absolute; opacity:1; width:96%;}
+
+#links{ opacity:0; 
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	}
+#links.show{  opacity:1;}
+
 
 
 /*
 						EXTRA PAGES
 =============================================================
 */
+
+
 
 
 
