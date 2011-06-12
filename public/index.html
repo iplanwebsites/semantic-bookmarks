@@ -20,11 +20,14 @@
 
 </head>
 
-<body>
+<body class="zoom4">
 
   <div id="container">
     <header>
 		
+		<div id="bottom_toolbar">
+			<input type="range"  min="1" max="7" id="zoom_level" value="4" />
+		</div>
 		<a href="#/" id="logo">
 			<h1>favs</h1>
 		</a>
@@ -32,7 +35,7 @@
 		<form action="#/"  method="post" id="search_form">
 			
 			<div class="clear-val">×</div>
-			<input name="q" id="q" placeholder="keywords  -  url" />
+			<input name="q" id="q" placeholder="keywords  -  url" type="search" />
 			
 			<span>
 			- Discover interesting websites: <em>type keywords</em> 

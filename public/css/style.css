@@ -87,7 +87,9 @@ body{ background: #f3f3f3;}
  */
 
 
-
+input[type="search"] {
+  -webkit-appearance: textfield;
+}
 
 
 
@@ -171,9 +173,18 @@ header .hr{ border-bottom: 1px dashed #ccc; clear:both; padding-top:30px;
 	transition: all 0.2s ease-in-out;
 	overflow:hidden;
 }
-.item.out{ opacity:0; height:0px; color:#fff;}
 
-
+.item.out{ opacity:0; height:0px; width:0px; margin:0px; padding:0px; color:#fff;}
+.item img{ width:100%; height:auto; }
+	
+	/* Find numbers that works nicely on common resoltions! (low space wasting...) */
+body.zoom1 .item{width:80px; }
+body.zoom2 .item{width:150px; }
+body.zoom3 .item{width:210px; }
+body.zoom4 .item{width:300px; }
+body.zoom5 .item{width:450px; }
+body.zoom6 .item{width:700px; }
+body.zoom7 .item{width:1000px; }
 
 /*
 						Settings PAGES
@@ -181,16 +192,18 @@ header .hr{ border-bottom: 1px dashed #ccc; clear:both; padding-top:30px;
 */
 
 
-#settings{ position: absolute; opacity:0; 
-	width:1%; background: rgba(0,0,0,0.8); color: #fff; 
+#settings{ position: absolute; 
+	 background: rgba(0,0,0,0.8); color: #fff; 
 	padding:2%;
 	-webkit-transition: all 0.2s ease-in-out;
 	-moz-transition: all 0.2s ease-in-out;
 	-o-transition: all 0.2s ease-in-out;
 	-ms-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
+	width:96%;
+	margin-left:-1500px;
 	}
-#settings.show{ position: absolute; opacity:1; width:96%;}
+#settings.show{ position: absolute; opacity:1; width:96%; margin-left:0px;}
 
 #links{ opacity:0; 
 	-webkit-transition: all 0.2s ease-in-out;
@@ -204,14 +217,24 @@ header .hr{ border-bottom: 1px dashed #ccc; clear:both; padding-top:30px;
 
 
 /*
-						EXTRA PAGES
+						Footer
 =============================================================
 */
 
+#bottom_toolbar{ position:fixed; bottom:0px; right:0px; background:#fff; padding:5px 10px 5px 10px;
+	-moz-box-shadow: -10px -10px 5px #888;
+	-webkit-box-shadow: -10px -10px 5px #888;
+	box-shadow: -2px -2px 5px #888;
+	
+	border-top-left-radius: 5px 5px;
+	}
 
 
 
-
+/*
+						EXTRA PAGES
+=============================================================
+*/
 
 
 .ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }

@@ -171,6 +171,22 @@ sammy = Sammy('#main', function() {
  		sammy.run('#/');
     
 
+		//Zoom-Level
+		if (!Modernizr.inputtypes.range) {
+				$('#zoom_level').hide(0);
+		  	// no native support for type=number fields
+		  	// maybe try Dojo or some other JavaScript framework
+		}else{
+			$('#zoom_level').change(function(){
+				var className = 'zoom' + $(this).val();
+				$('body').removeClass('zoom1 zoom2 zoom3 zoom4 zoom5 zoom6 zoom7')
+				$('body').addClass(className);
+				//alert($(this).val());
+				//TODO: if we scroll to a new level, set a new zoomLevel to the body, or link section.
+				
+			});
+			
+		}
 		
 		
 // Button Erase search field

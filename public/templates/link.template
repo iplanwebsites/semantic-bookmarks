@@ -1,5 +1,5 @@
 <div class="item">
-        <div class="item-image"><img src="http://3.bp.blogspot.com/_d_6DsRleVQU/SwE90yBE5HI/AAAAAAAAALw/W7sHX4qLTkU/s1600/monkey.jpg" alt="<%= item.u %>" width="200" height="150" /></div>
+        <div class="item-image"><img src="http://3.bp.blogspot.com/_d_6DsRleVQU/SwE90yBE5HI/AAAAAAAAALw/W7sHX4qLTkU/s1600/monkey.jpg" alt="<%= item.u %>" /></div>
         <div class="item-artist"><%= item.d %></div>
         <div class="item-title"><%= item.t %></div>
         <div class="item-price"><a href="http://<%= cleanDomain(item.u) %>"><%= cleanDomain(item.u) %></a></div>
