@@ -94,6 +94,7 @@ sammy = Sammy('#main', function() {
 						var context=this;
 						$.ajax({
 	              url: '/api/v1/delicious/feed', //won't work locally, be sure to run this unsing test server...
+                  data: { count: 20 },
 	              dataType: 'json',
 	              success: function(items) {
 	                $.each(items, function(i, item) {

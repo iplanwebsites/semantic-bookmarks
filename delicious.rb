@@ -22,18 +22,22 @@ get '/' do
 end
 
 # Hotlist bookmarks
+# ?count={1..100} to limit the number of results (default 15)
 get '/api/v1/delicious/feed' do
   content_type :json
-  result = get_json delicious_url
+  count = "?count=#{params[:count]}" if params[:count]
+  result = get_json "#{delicious_url}#{count}"
 
   # TODO: tweak the response, thumbnail links, etc.
   result.to_json
 end
 
 # Recent bookmarks
+# ?count={1..100} to limit the number of results (default 15)
 get '/api/v1/delicious/feed/recent' do
   content_type :json
-  result = get_json "#{delicious_url}/recent"
+  count = "?count=#{params[:count]}" if params[:count]
+  result = get_json "#{delicious_url}/recent#{count}"
 
   result.to_json
 end
