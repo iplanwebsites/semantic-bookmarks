@@ -1,5 +1,3 @@
-path = File.expand_path "../", __FILE__
-
-require "#{path}/delicious"
+require File.join(File.dirname(__FILE__), 'lib/delicious')
 
 run Sinatra::Application

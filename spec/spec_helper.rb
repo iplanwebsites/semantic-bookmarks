@@ -5,8 +5,8 @@ require 'bundler'
 Bundler.setup
 
 require 'rack/test'
-require_relative '../helpers'
-require_relative '../delicious'
+require_relative '../lib/helpers'
+require_relative '../lib/delicious'
 
 module RSpecMixin
   include Rack::Test::Methods

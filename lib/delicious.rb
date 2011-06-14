@@ -8,6 +8,8 @@ delicious_url = 'http://feeds.delicious.com/v2/json'
 
 helpers Helpers
 
+set :views, File.join(File.dirname(__FILE__), '..', 'views')
+
 get '/' do
   erb :index
 end
