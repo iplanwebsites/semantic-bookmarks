@@ -2,23 +2,11 @@ require 'rubygems'
 require 'bundler/setup'
 
 require 'sinatra'
-require 'json'
-require 'net/http'
+require_relative 'helpers'
 
-helpers do
-  def delicious_url
-    'http://feeds.delicious.com/v2/json'
-  end
+delicious_url = 'http://feeds.delicious.com/v2/json'
 
-  def get_url(url)
-    Net::HTTP.get_response(URI.parse(url))
-  end
-
-  def get_json(url)
-    resp = get_url url
-    JSON.parse resp.body
-  end
-end
+helpers Helpers
 
 get '/' do
   erb :index

@@ -15,8 +15,8 @@ describe 'The Delicious App' do
 
   it 'should fetch hotlist bookmarks from delicious' do
     mock_req = double('http request')
-    mock_req.should_receive(:body).and_return(delicious_json)
-    Net::HTTP.should_receive(:get_response).and_return(mock_req)
+    mock_req.should_receive(:body) { delicious_json }
+    Net::HTTP.should_receive(:get_response) { mock_req }
 
     get '/api/v1/delicious/feed'
     last_response.should be_ok
