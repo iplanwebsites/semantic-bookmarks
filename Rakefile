@@ -1,9 +1,6 @@
-require 'rake/testtask'
+require 'rspec/core/rake_task'
 
-task :test do
-  Rake::TestTask.new do |t|
-    t.libs << "test"
-    t.pattern = "test/*_test.rb"
-    t.verbose = true
-  end
+namespace :spec do
+  desc "Run all specs"
+  RSpec::Core::RakeTask.new('all')
 end
