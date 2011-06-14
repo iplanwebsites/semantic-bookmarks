@@ -18,11 +18,7 @@ end
 # ?count={1..100} to limit the number of results (default 15)
 get '/api/v1/delicious/feed' do
   content_type :json
-  count_param = params[:count].to_s
-  count =
-    if !count_param.empty? and count_param =~ /^\d+$/
-      "?count=#{count_param}"
-    end
+  count = count_param(params[:count])
   result = get_json "#{delicious_url}#{count}"
 
   # TODO: tweak the response, thumbnail links, etc.
@@ -33,11 +29,7 @@ end
 # ?count={1..100} to limit the number of results (default 15)
 get '/api/v1/delicious/feed/recent' do
   content_type :json
-  count_param = params[:count].to_s
-  count =
-    if !count_param.empty? and count_param =~ /^\d+$/
-      "?count=#{count_param}"
-    end
+  count = count_param(params[:count])
   result = get_json "#{delicious_url}/recent#{count}"
 
   result.to_json

@@ -14,9 +14,11 @@ describe 'The Delicious App' do
   end
 
   it 'should fetch hotlist bookmarks from delicious' do
+    uri = URI.parse(delicious_url)
+
     mock_req = double('http request')
     mock_req.should_receive(:body) { delicious_json }
-    Net::HTTP.should_receive(:get_response).with(URI.parse(delicious_url)) { mock_req }
+    Net::HTTP.should_receive(:get_response).with(uri) { mock_req }
 
     get '/api/v1/delicious/feed'
     last_response.should be_ok
@@ -26,32 +28,49 @@ describe 'The Delicious App' do
   end
 
   it 'should limit the number of hotlist bookmark results' do
+    uri = URI.parse("#{delicious_url}?count=50")
+
     mock_req = double('http request')
     mock_req.should_receive(:body) { delicious_json }
-    uri = URI.parse("#{delicious_url}?count=50")
     Net::HTTP.should_receive(:get_response).with(uri) { mock_req }
 
     get '/api/v1/delicious/feed?count=50'
     last_response.should be_ok
   end
 
-  it 'should ignore empty count parameters' do
-    mock_req = double('http request')
-    mock_req.should_receive(:body) { delicious_json }
-    uri = URI.parse("#{delicious_url}")
-    Net::HTTP.should_receive(:get_response).with(uri) { mock_req }
-
-    get '/api/v1/delicious/feed?count='
-    last_response.should be_ok
-  end
-
   it "should ignore the count param if it's not a positive integer" do
+    uri = URI.parse("#{delicious_url}")
+
     mock_req = double('http request')
     mock_req.should_receive(:body) { delicious_json }
-    uri = URI.parse("#{delicious_url}")
     Net::HTTP.should_receive(:get_response).with(uri) { mock_req }
 
     get '/api/v1/delicious/feed?count=-100'
+    last_response.should be_ok
+  end
+
+  it 'should fetch recent bookmarks from delicious' do
+    uri = URI.parse("#{delicious_url}/recent")
+
+    mock_req = double('http request')
+    mock_req.should_receive(:body) { delicious_json }
+    Net::HTTP.should_receive(:get_response).with(uri) { mock_req }
+
+    get '/api/v1/delicious/feed/recent'
+    last_response.should be_ok
+    last_response.headers['Content-Type'].should == 'application/json'
+    last_response.body.should == delicious_json
+    JSON.parse(last_response.body).length.should == 2
+  end
+
+  it 'should limit the number of recent bookmark results' do
+    uri = URI.parse("#{delicious_url}/recent?count=50")
+
+    mock_req = double('http request')
+    mock_req.should_receive(:body) { delicious_json }
+    Net::HTTP.should_receive(:get_response).with(uri) { mock_req }
+
+    get '/api/v1/delicious/feed/recent?count=50'
     last_response.should be_ok
   end
 

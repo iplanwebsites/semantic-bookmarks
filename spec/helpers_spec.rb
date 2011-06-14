@@ -29,4 +29,21 @@ describe 'The Sinatra Helpers' do
     expect { get_json(url) }.to raise_error(JSON::ParserError)
   end
 
+  it 'should return the count as a URL query param' do
+    count_param(20).should == '?count=20'
+  end
+
+  it 'should return nil if the count is empty' do
+    count_param('').should == nil
+    count_param(nil).should == nil
+  end
+
+  it 'should return nil for non integer params' do
+    count_param('bla'.should) == nil
+  end
+
+  it 'should return nil for negative integers' do
+    count_param('-10') == nil
+  end
+
 end

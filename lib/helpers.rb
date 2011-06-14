@@ -10,4 +10,10 @@ module Helpers
     resp = get_url url
     JSON.parse resp.body
   end
+
+  def count_param(count)
+    if !count.to_s.empty? and count.to_s =~ /^\d+$/
+      "?count=#{count}"
+    end
+  end
 end
