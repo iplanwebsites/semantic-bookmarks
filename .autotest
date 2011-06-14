@@ -1,1 +1,15 @@
 require 'autotest/bundler'
+require 'test_notifier/runner/autotest'
+
+TestNotifier.default_notifier =
+  if RUBY_PLATFORM.downcase.include? 'linux'
+    :kdialog
+  elsif RUBY_PLATFORM.downcase.include? 'darwin'
+    :growl
+  end
+
+Autotest.add_hook :initialize do |autotest|
+  autotest.add_mapping(/^spec\/.*_spec\.rb$/) do |file|
+    file
+  end
+end
