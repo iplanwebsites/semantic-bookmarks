@@ -201,7 +201,7 @@ body.zoom7 .item{width:1000px; }
 	-ms-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
 	width:96%;
-	margin-left:-1500px;
+	margin-left:-2560px;
 	}
 #settings.show{ position: absolute; opacity:1; width:96%; margin-left:0px;}
 
