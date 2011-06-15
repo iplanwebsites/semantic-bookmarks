@@ -29,7 +29,9 @@ describe 'The Delicious App' do
         @last_response = last_response
       end
 
-      it { @last_response.should be_ok }
+      it 'queries delicious for hotlist bookmarks' do
+        @last_response.should be_ok
+      end
 
       it 'has an application/json content type' do
         @last_response.headers['Content-Type'].should == 'application/json'
@@ -77,7 +79,9 @@ describe 'The Delicious App' do
         @last_response = last_response
       end
 
-      it { @last_response.should be_ok }
+      it 'queries delicious for recent bookmarks' do
+        @last_response.should be_ok
+      end
 
       it 'has an application/json content type' do
         @last_response.headers['Content-Type'].should == 'application/json'
@@ -100,6 +104,56 @@ describe 'The Delicious App' do
       end
 
       it 'adds a count parameter to the delicious request' do
+        @last_response.should be_ok
+      end
+    end
+  end
+
+  describe '#/api/v1/delicious/feed/tag - bookmarks by tag' do
+    context 'when count is not specified' do
+      before do
+        mock_get_json URI.parse("#{@delicious_url}/tag/javascript")
+        get '/api/v1/delicious/feed/tag/javascript'
+        @last_response = last_response
+      end
+
+      it 'queries delicious for bookmarks by tag' do
+        @last_response.should be_ok
+      end
+
+      it 'has an application/json content type' do
+        @last_response.headers['Content-Type'].should == 'application/json'
+      end
+
+      it 'returns json from delicious' do
+        @last_response.body.should == delicious_json
+      end
+
+      it 'returns two bookmarks' do
+        JSON.parse(@last_response.body).length.should == 2
+      end
+    end
+
+    context 'when count is a number' do
+      before do
+        mock_get_json URI.parse("#{@delicious_url}/tag/javascript?count=50")
+        get '/api/v1/delicious/feed/tag/javascript?count=50'
+        @last_response = last_response
+      end
+
+      it 'adds a count parameter to the delicious request' do
+        @last_response.should be_ok
+      end
+    end
+
+    context 'when multiple tags are specified' do
+      before do
+        mock_get_json URI.parse("#{@delicious_url}/tag/tag1+tag2+tag3")
+        get '/api/v1/delicious/feed/tag/tag1+tag2+tag3'
+        @last_response = last_response
+      end
+
+      it 'queries delicious for an intersection of tags' do
         @last_response.should be_ok
       end
     end
