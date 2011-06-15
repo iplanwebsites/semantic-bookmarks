@@ -17,68 +17,55 @@ end
 # All delicious feeds accept a count parameter
 # ?count={1..100} to limit the number of results (default 15)
 
+# Filters
+before '/api/v1/delicious/feed*' do
+  @count = count_param(params[:count])
+end
+
+after '/api/v1/delicious/feed*' do
+  content_type :json
+end
+
 # Hotlist bookmarks
 get '/api/v1/delicious/feed' do
-  content_type :json
-  count = count_param(params[:count])
-  result = get_json "#{delicious_url}#{count}"
-
+  result = get_json "#{delicious_url}#{@count}"
   # TODO: tweak the response, thumbnail links, etc.
   result.to_json
 end
 
 # Recent bookmarks
 get '/api/v1/delicious/feed/recent' do
-  content_type :json
-  count = count_param(params[:count])
-  result = get_json "#{delicious_url}/recent#{count}"
-
+  result = get_json "#{delicious_url}/recent#{@count}"
   result.to_json
 end
 
 # Bookmarks by tags
-get '/api/v1/delicious/feed/tag/:tags' do
-  content_type :json
-  count = count_param(params[:count])
-  result = get_json "#{delicious_url}/tag/#{params[:tags].split.join '+'}#{count}"
-
+get '/api/v1/delicious/feed/tag/:tags' do |tags|
+  result = get_json "#{delicious_url}/tag/#{tags.split.join '+'}#{@count}"
   result.to_json
 end
 
 # Popular bookmarks
 get '/api/v1/delicious/feed/popular' do
-  content_type :json
-  count = count_param(params[:count])
-  result = get_json "#{delicious_url}/popular#{count}"
-
+  result = get_json "#{delicious_url}/popular#{@count}"
   result.to_json
 end
 
 # Popular bookmarks by tag
-get '/api/v1/delicious/feed/popular/:tag' do
-  content_type :json
-  count = count_param(params[:count])
-  result = get_json "#{delicious_url}/popular/#{params[:tag]}#{count}"
-
+get '/api/v1/delicious/feed/popular/:tag' do |tag|
+  result = get_json "#{delicious_url}/popular/#{tag}#{@count}"
   result.to_json
 end
 
 # User's public bookmarks
-get '/api/v1/delicious/feed/:username' do
-  content_type :json
-  count = count_param(params[:count])
-  result = get_json "#{delicious_url}/#{params[:username]}#{count}"
-
+get '/api/v1/delicious/feed/:username' do |username|
+  result = get_json "#{delicious_url}/#{username}#{@count}"
   result.to_json
 end
 
 #User's public bookmakrs by tags
-get '/api/v1/delicious/feed/:username/:tags' do
-  content_type :json
-  count = count_param(params[:count])
-  result =
-    get_json "#{delicious_url}/#{params[:username]}/#{params[:tags].split.join '+'}#{count}"
-
+get '/api/v1/delicious/feed/:username/:tags' do |username, tags|
+  result = get_json "#{delicious_url}/#{username}/#{tags.split.join '+'}#{@count}"
   result.to_json
 end
 
