@@ -40,7 +40,7 @@
 
 ## Design(css/html)
 * Design preference/settings page
-* Better style the visual bookmarks listing
+* Better style the visual bookmarks listing, and add flag/remove/details buttons.
 * Design an alternative "list view"
 * Design importing workflow (clear instructions + file upload control)
 * Design the login pages (create account, login, lost my account)
@@ -56,6 +56,9 @@
 * Add login controls to template
 * Handle bookmark adding & removing (handling the Dom element, and contacting the API in parallel)
 * Add options for each bookmarks (flag, delete, details)
+* Trigger Google-analytics pageviews on key events (add url, visit a link, etc).
+* Show options of a bookmarks on rollover (remove, details, etc)
+
 
 
 
