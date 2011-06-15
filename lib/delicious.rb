@@ -54,6 +54,15 @@ get '/api/v1/delicious/feed/popular' do
   result.to_json
 end
 
+# Popular bookmarks by tag
+get '/api/v1/delicious/feed/popular/:tag' do
+  content_type :json
+  count = count_param(params[:count])
+  result = get_json "#{delicious_url}/popular/#{params[:tag]}#{count}"
+
+  result.to_json
+end
+
 not_found do
   halt 404, 'Page not found'
 end
