@@ -159,6 +159,44 @@ describe 'The Delicious App' do
     end
   end
 
+  describe '#/api/v1/delicious/feed/popular - popular bookmarks' do
+    context 'when count is not specified' do
+      before do
+        mock_get_json "#{@delicious_url}/popular"
+        get '/api/v1/delicious/feed/popular'
+        @last_response = last_response
+      end
+
+      it 'queries delicious for popular bookmarks' do
+        last_response.should be_ok
+      end
+
+      it 'has an application/json content type' do
+        @last_response.headers['Content-Type'].should == 'application/json'
+      end
+
+      it 'returns json from delicious' do
+        @last_response.body.should == delicious_json
+      end
+
+      it 'returns two bookmarks' do
+        JSON.parse(@last_response.body).length.should == 2
+      end
+    end
+
+    context 'when count is a number' do
+      before do
+        mock_get_json "#{@delicious_url}/popular?count=80"
+        get '/api/v1/delicious/feed/popular?count=80'
+        @last_response = last_response
+      end
+
+      it 'adds a count parameter to the delicious request' do
+        @last_response.should be_ok
+      end
+    end
+  end
+
   context 'when page cannot be found' do
     before do
       get '/404'
