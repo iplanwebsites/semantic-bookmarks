@@ -28,15 +28,22 @@
 		<div id="bottom_toolbar">
 			<input type="range"  min="1" max="7" id="zoom_level" value="4" />
 		</div>
+		
+		<div id="login_toolbar">
+			<form action="#/login"  method="post" id="login_form">
+				<input type="text" name="login" placeholder="login" />
+				<input type="password" name="pass" placeholder="pass"  />
+				<input type="submit" value="go!" />
+			</form>
+		</div>
+		
 		<a href="#/" id="logo">
 			<h1>favs</h1>
 		</a>
 
 		<form action="#/"  method="post" id="search_form">
-
 			<div class="clear-val">×</div>
 			<input name="q" id="q" placeholder="keywords  -  url" type="search" />
-
 			<span>
 			- Discover interesting websites: <em>type keywords</em>
 			<br/>
@@ -56,37 +63,104 @@
 			<div id="links">loading links</div>
 
 		<div id="settings">
-			<h1>settings<h1>
+			<h1>settings</h1>
 				<form id="form_settings" name="form_settings">
 					<h3>Import + Sync</h3>
 						<div id="import-chrome">
-							<h4>Syncing with Google Chrome</h4>
+							<p>Importing from Google Chrome is super easy.</p>
 								<div class="guidebox">
-									<h5>1. Export your bookmark file</h5>
-									<ol>
+									
+									<!-- 
+									
+
+									Please follow the instructions below to export such a bookmark file from the most common services and browsers:
+
+									DELICIOUS
+									Export a bookmark file over at https://secure.delicious.com/settings/bookmarks/export
+									(You will need to be logged in to export your bookmarks)
+									SAFARI
+									Choose "File" > "Export Bookmarks"
+									CHROME
+									Choose "Bookmarks" > "Bookmark Manager"
+									Choose "Organize" > "Export Bookmarks…"
+									FIREFOX
+									
+									-->
+									<h4>1. Export your bookmark file</h4>
+									<div class="relative">
+									<label for"browser_menu">running another browser?</label>
+									<select name="browser_menu" id="browser_menu">
+									<option value="chrome" selected>Chrome</option>
+									<option value="ff">Firefox</option>
+									<option value="safari">Safari</option>
+									<option value="ios">iOs (iPhone / iPad)</option>
+									<option value="android">Android mobiles</option>
+									<option value="opera">Opera</option>
+									</select>
+									
+									<ol class="chrome import_instruction open">
 								<li>Click the wrench icon on the browser toolbar.
 								</li><li>Select Bookmark manager.
 								</li><li>Click the Organize menu in the manager.
 								</li><li>Select Export bookmarks.
 								</li><li>Choose a location where you want your exported file to be saved, then click Save.</li>
 								</ol>
+								
+								<ol class="safari import_instruction">
+									<li>Choose "File" > "Export Bookmarks"</li>
+								</ol>
+								<ol class="ff import_instruction">
+									<li>Choose "Bookmarks" > "Organize Bookmarks"</li>
+									<li>Choose "Export..." from the File menu</li>
+								</ol>
+								<ol class="opera import_instruction">
+									<li>Choose "File" > "Import and Export"</li>
+									<li>Choose "Export Opera Bookmarks"</li>
+								</ol>
+								</div>
 								</div>
 
 
 								<div class="guidebox">
-									<h5>2. Import the file</h5>
-									<p>Now select the</p>
+									<h4>2. Upload the file</h4>
+									<p>Now select the file you just saved.</p>
+									<form id="form_upload" enctype="multipart/form-data" method="post" action="#/api/import/file">
+									    <div class="row">
+									      <label for="fileToUpload">Select a File to Upload</label><br />
+									      <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+									    </div>
+											<div id="fileInfo">
+									     <div id="fileName"></div>
+									     <div id="fileSize"></div>
+									     <div id="fileType"></div>
+									    </div>
+									<div class="row">
+									      <input type="button" onclick="uploadFile()" value="Upload" />
+									    </div>
+									    <div id="progressBar"></div>
+									  </form>
 
 								</div>
 
-
-							<h4>Extending</h4>
-								Chrome extension
+							
+							
+							
+							
+							<h3>Extend "favs"</h3>
+								<div class="guidebox">
+								<h4>Chrome extension</h4>
+								<p>An even slicker bookmark button is in progress.</p>
+								
+								<h4>Delicious user?</h4>
+								login / user field + import bt.
+								(autamatic import process then starts on the homepage)
+								
+								</div>
 					</div>
 
 					<h3>Preference</h3>
-						X - Suggest relevant sites on top of my
-						X - Hide my bookmarks from other users.
+						On
+					<!--	X - Hide my bookmarks from other users. -->
 
 
 						<h3>Account</h3>
@@ -111,6 +185,7 @@
 
 	<script src="js/libs/sammy-0.6.3.min.js"></script>
 	<script src="js/sammy/plugins/sammy.template.js"></script>
+	<script src="js/libs/upload.js"></script>
 	<script src="js/script.js"></script>
 
 

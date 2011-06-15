@@ -220,7 +220,17 @@ $('#q').bind('keypress keyup change focus click', function() {
     	}, 150);
 });
     
-    
+$('#browser_menu').bind('change', function() {
+	var val = $('#browser_menu').val();
+	//remove open class to old element...
+	$('.import_instruction.open').removeClass('open');
+	//Add open class to new one
+	$('.import_instruction.'+val).addClass('open');
+	
+});
+
+
+
 });//document ready...
 
 

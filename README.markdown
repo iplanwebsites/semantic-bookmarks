@@ -58,6 +58,10 @@
 * Add options for each bookmarks (flag, delete, details)
 * Trigger Google-analytics pageviews on key events (add url, visit a link, etc).
 * Show options of a bookmarks on rollover (remove, details, etc)
+* Improve the regEx for Urls (more permissive...)
+* Fine-tune the file upload (show progress, possibly improbe the upload.js script)
+* Detect user-agent (browser + deveice), and set classes on the body accordingly (so we can toggle specific settings)
+* Settings: Toggle different instructions for different browsers using the Select input.
 
 
 
@@ -66,11 +70,14 @@
 
 # More Info
 
-[Discussion (prompt.im):]: http://prompt.im/SemanticBookmarks
+Discussion (prompt.im):
+http://prompt.im/SemanticBookmarks
 
-[Heroku hosted demo:]: http://semantic-bookmarks.heroku.com/
+Demo
+http://semantic-bookmarks.heroku.com/
 
 
-
+google bookmark api.
+http://code.google.com/p/gmarks-android/wiki/BookmarksAPI
 
 
