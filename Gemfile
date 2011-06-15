@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'sinatra'
 gem 'mongo'
 
+
 group :development, :test do
   gem 'autotest'
   gem 'autotest-inotify'
@@ -10,4 +11,6 @@ group :development, :test do
   gem 'rspec'
   gem 'shotgun'
   gem 'test_notifier'
+	gem 'extensions'
+	gem 'json'
 end

@@ -2,6 +2,7 @@ require 'rubygems'
 require 'bundler/setup'
 
 require 'sinatra'
+require 'extensions/all'
 require_relative 'helpers'
 
 delicious_url = 'http://feeds.delicious.com/v2/json'
