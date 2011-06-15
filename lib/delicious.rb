@@ -36,7 +36,7 @@ get '/api/v1/delicious/feed/recent' do
   result.to_json
 end
 
-# Bookmarks by tag
+# Bookmarks by tags
 get '/api/v1/delicious/feed/tag/:tags' do
   content_type :json
   count = count_param(params[:count])
@@ -68,6 +68,16 @@ get '/api/v1/delicious/feed/:username' do
   content_type :json
   count = count_param(params[:count])
   result = get_json "#{delicious_url}/#{params[:username]}#{count}"
+
+  result.to_json
+end
+
+#User's public bookmakrs by tags
+get '/api/v1/delicious/feed/:username/:tags' do
+  content_type :json
+  count = count_param(params[:count])
+  result =
+    get_json "#{delicious_url}/#{params[:username]}/#{params[:tags].split.join '+'}#{count}"
 
   result.to_json
 end
