@@ -14,8 +14,10 @@ get '/' do
   erb :index
 end
 
-# Hotlist bookmarks
+# All delicious feeds accept a count parameter
 # ?count={1..100} to limit the number of results (default 15)
+
+# Hotlist bookmarks
 get '/api/v1/delicious/feed' do
   content_type :json
   count = count_param(params[:count])
@@ -26,11 +28,19 @@ get '/api/v1/delicious/feed' do
 end
 
 # Recent bookmarks
-# ?count={1..100} to limit the number of results (default 15)
 get '/api/v1/delicious/feed/recent' do
   content_type :json
   count = count_param(params[:count])
   result = get_json "#{delicious_url}/recent#{count}"
+
+  result.to_json
+end
+
+# Bookmarks by tag
+get '/api/v1/delicious/feed/tag/:tags' do
+  content_type :json
+  count = count_param(params[:count])
+  result = get_json "#{delicious_url}/tag/#{params[:tags].split.join '+'}#{count}"
 
   result.to_json
 end
