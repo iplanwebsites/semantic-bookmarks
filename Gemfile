@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'sinatra'
 gem 'mongo'
-
+gem 'json'
 
 group :development, :test do
   gem 'autotest'
@@ -11,6 +11,4 @@ group :development, :test do
   gem 'rspec'
   gem 'shotgun'
   gem 'test_notifier'
-	gem 'extensions'
-	gem 'json'
 end
