@@ -169,7 +169,6 @@ header .hr{ border-bottom: 1px dashed #ccc; clear:both; padding-top:30px;
 =============================================================
 */
 
-
 .item{ width: 200px; height:300px; float:left; background:#fff; margin-left:10px; opacity:1;
 	padding:2px;
 	-webkit-transition: all 0.2s ease-in-out;
@@ -197,54 +196,55 @@ body.zoom7 .item{width:960px; }
 =============================================================
 */
 
-#feedback{ position: fixed;
+#feedback{  /* this is the semi-transparent black bg */
+	position: fixed;
 	top:0;
 	left:0; 
 	 background: rgba(0,0,0,0.8); color: #000; 
-	-webkit-transition: all 0.2s ease-in-out;
-	-moz-transition: all 0.2s ease-in-out;
-	-o-transition: all 0.2s ease-in-out;
-	-ms-transition: all 0.2s ease-in-out;
-	transition: all 0.2s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	-ms-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
 	width:100%;
 	height:100%;
-	margin-left:-100%;
 	text-align:center;
 	opacity:0;
 	z-index:10;
+	display:none;
 	}
-#feedback.show{ opacity:1; margin-left:0;}
+#feedback.show{ opacity:1; margin-left:0; display:block;}
 
 #feedback #contactform{ 
--webkit-transform: rotate(9deg);
--moz-transform: rotate(9deg);
-transform: rotate(9deg);
--webkit-transition: all 0.2s ease-in-out;
--moz-transition: all 0.2s ease-in-out;
--o-transition: all 0.2s ease-in-out;
--ms-transition: all 0.2s ease-in-out;
-transition: all 0.8s ease-in-out;
-width:100%;
-margin-top:50px;
+-webkit-transform: rotate(29deg);
+-moz-transform: rotate(29deg);
+transform: rotate(29deg);
+-webkit-transition: all 0.4s ease-in-out;
+-moz-transition: all 0.4s ease-in-out;
+-o-transition: all 0.4s ease-in-out;
+-ms-transition: all 0.4s ease-in-out;
+transition: all 0.4s ease-in-out;
+position:fixed; /* so it doesn't pan with the bg */
+top: 10%;
+left: 50%;
 opacity:0;
 background:#fff;
 padding:20px;
-margin:auto;
-width:50%;
+margin-left:-15%;
+width:30%;
+min-width:260px;
 }
 
 #feedback.show #contactform{ 
 	-webkit-transform: rotate(-2deg);
 	-moz-transform: rotate(-2deg);
 	transform: rotate(-2deg);
-	margin-top:100px;
+	margin-top:13%;
 	opacity:1;
-	 
-	
-	}
+}
 
 /*
-						Settings PAGES
+						Settings PAGE
 =============================================================
 */
 

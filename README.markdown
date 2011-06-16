@@ -81,3 +81,10 @@ google bookmark api.
 http://code.google.com/p/gmarks-android/wiki/BookmarksAPI
 
 
+
+
+### possibly missing gems?
+* bundler
+* ZenTest?
+* autotest
+* ZenTest

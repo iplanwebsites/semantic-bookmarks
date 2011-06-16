@@ -130,7 +130,7 @@ sammy = Sammy('#main', function() {
 						
 						//if we link to main filter, and if there's an other active page (pop-up), redirect to home!
 						if((pageId =='links') && ($('.activePage').attr('id') != "links")){
-							 location.replace('#/');
+							 sammy.setLocation('#/');
 						}
 						
 						if(pageId != $('.activePage').attr('id')){ //if we want a different page than the curent one.
@@ -228,7 +228,7 @@ $('#browser_menu').bind('change', function() {
 });
 
 	$('#feedback').bind('click', function() {
-		location.replace('#/'); //doesn't populate the history stack correctly...
+		sammy.setLocation('#/'); //doesn't populate the history stack correctly...
 	});
 });//document ready...
 
