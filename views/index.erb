@@ -62,6 +62,40 @@
 
 			<div id="links">loading links</div>
 
+		<div id="feedback">
+			<div id="contactform" class="contactblock"> 
+					<h1>Feedback</h1>
+					<p>Did we told you we love to hear from our users?</p>
+			          <form id="myform" action="?no"> 
+			            <fieldset> 
+			              <ul class="form"> 
+			                <li > 
+			                  <label for="form_name"> 
+			                                        Name
+			                                      </label> 
+			                  <input id="form_name" class="is_required" name="Name" type="text" /> 
+			                </li> 
+			                <li class="email"> 
+			                  <label for='form_email'> 
+			                                        Email
+			                                      </label> 
+			                  <input id="form_email" class="is_required vemail" name="Email" type="text" /> 
+			                </li> 
+			                <li class="comments"> 
+			                  <label for="form_comment">Message</label> 
+			                  <textarea id="form_comment" class="is_required" name="Comment" ></textarea> 
+			                </li> 
+			                <li class="submit"> 
+			                  <input id="send_contact" type="submit" value="Send Message" onFocus="this.blur();"/> 
+			                </li> 
+			              </ul> 
+			            </fieldset> 
+			          </form> 
+			        </div> <!-- / #contactForm-->
+						</div> <!-- /  #feedback-->
+
+
+
 		<div id="settings">
 			<h1>settings</h1>
 				<form id="form_settings" name="form_settings">
@@ -157,17 +191,27 @@
 					</div>
 
 					<h3>Preference</h3>
-						On
 					<!--	X - Hide my bookmarks from other users. -->
-
+						<input type="checkbox" id="chk_popular" />
+						<label for="chk_popular">Show trending websites on launch</label>
 
 						<h3>Account</h3>
 							Your are currently logged in as <a href="#">user</a>.
+							
+						<h3>Learn how to:</h3>
+							<ul>
+								<li>Use the app on your mobile</li>
+								<li>Sync bookmarks across different browsers/devices</li>
+							</ul>
 
 
-
-
-				</form>
+							<h3>Feedback</h3>
+							<p> 
+								Unhappy about something? Got an interesting idea? Want to get involved?
+								<a href="#/feedback">Tell us about it! We'd love to hear from you</a>
+							</p>
+							
+							</form>
 		</div>
     </div>
     <footer>

@@ -85,8 +85,12 @@ sammy = Sammy('#main', function() {
 							 $('#settings').addClass('show activePage');
                $('#settings').addClass('show'); */
 							this.trigger('show-page', {page: 'settings'});
+    });
 
-           });
+		//Feedback
+    this.get('#/feedback', function() {  
+							this.trigger('show-page', {page: 'feedback'});
+    });
 
 
 		//EVENT: Load Ajax
@@ -182,9 +186,6 @@ sammy = Sammy('#main', function() {
 				var className = 'zoom' + $(this).val();
 				$('body').removeClass('zoom1 zoom2 zoom3 zoom4 zoom5 zoom6 zoom7')
 				$('body').addClass(className);
-				//alert($(this).val());
-				//TODO: if we scroll to a new level, set a new zoomLevel to the body, or link section.
-				
 			});
 			
 		}
@@ -216,21 +217,19 @@ $('#q').bind('keypress keyup change focus click', function() {
 	sammy.trigger('filter-item');
 	sammy.trigger('show-page', {page: 'links'});
 			throttle(function (event) {
-				
+				//TODO: contact server here.
     	}, 150);
 });
     
 $('#browser_menu').bind('change', function() {
 	var val = $('#browser_menu').val();
-	//remove open class to old element...
-	$('.import_instruction.open').removeClass('open');
-	//Add open class to new one
-	$('.import_instruction.'+val).addClass('open');
-	
+	$('.import_instruction.open').removeClass('open');//remove open class to old element...
+	$('.import_instruction.'+val).addClass('open');//Add open class to new one
 });
 
-
-
+	$('#feedback').bind('click', function() {
+		location.replace('#/'); //doesn't populate the history stack correctly...
+	});
 });//document ready...
 
 

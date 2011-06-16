@@ -193,6 +193,57 @@ body.zoom6 .item{width:660px; }
 body.zoom7 .item{width:960px; }
 
 /*
+						Feedback page
+=============================================================
+*/
+
+#feedback{ position: fixed;
+	top:0;
+	left:0; 
+	 background: rgba(0,0,0,0.8); color: #000; 
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	width:100%;
+	height:100%;
+	margin-left:-100%;
+	text-align:center;
+	opacity:0;
+	z-index:10;
+	}
+#feedback.show{ opacity:1; margin-left:0;}
+
+#feedback #contactform{ 
+-webkit-transform: rotate(9deg);
+-moz-transform: rotate(9deg);
+transform: rotate(9deg);
+-webkit-transition: all 0.2s ease-in-out;
+-moz-transition: all 0.2s ease-in-out;
+-o-transition: all 0.2s ease-in-out;
+-ms-transition: all 0.2s ease-in-out;
+transition: all 0.8s ease-in-out;
+width:100%;
+margin-top:50px;
+opacity:0;
+background:#fff;
+padding:20px;
+margin:auto;
+width:50%;
+}
+
+#feedback.show #contactform{ 
+	-webkit-transform: rotate(-2deg);
+	-moz-transform: rotate(-2deg);
+	transform: rotate(-2deg);
+	margin-top:100px;
+	opacity:1;
+	 
+	
+	}
+
+/*
 						Settings PAGES
 =============================================================
 */
