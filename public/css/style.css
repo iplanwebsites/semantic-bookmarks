@@ -211,7 +211,7 @@ body.zoom7 .item{width:960px; }
 	}
 #settings.show{ position: absolute; opacity:1; width:96%; margin-left:0px;}
 
-#links{ opacity:0; 
+#links{ opacity:0;  
 	-webkit-transition: all 0.2s ease-in-out;
 	-moz-transition: all 0.2s ease-in-out;
 	-o-transition: all 0.2s ease-in-out;
