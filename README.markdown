@@ -10,6 +10,7 @@
 * Connect to a mongoHQ database
 * Design basic mongo collections (bookmark & user)
 * DIO - Authentication module, login, retrieve password, etc (no facebook/twitter sign-on for now)
+	* Auth-ruby gem let's us create OAUTH provider (that would be the perfect option, since there's no viable OAUTH2 provider gem yet): https://github.com/oauth/oauth-ruby
 * Save and retrieve bookmarks from database (instead of the delicious feed)
 * Remove a bookmarks from a specific user feed.
 * Retrieve basic site bookmarks metadata (title, meta desc, keywords, etc)
@@ -50,7 +51,8 @@
 
 
 ## Front-end (js/html)
-* Save/retrieve viewing preference (zoom level) to a local cookie
+* <strike> Save/retrieve viewing preference (zoom level) to a local cookie</strike>
+* Re-factor the main field submit into a PUT route in sammy.js.
 * Save bookmark data locally, using html5 LocaStorage (so we don't need to re-query the server for the same data every time.)
 * Update accounts settings using the API (ajax call)
 * Add login controls to template
@@ -83,8 +85,3 @@ http://code.google.com/p/gmarks-android/wiki/BookmarksAPI
 
 
 
-### possibly missing gems?
-* bundler
-* ZenTest?
-* autotest
-* ZenTest

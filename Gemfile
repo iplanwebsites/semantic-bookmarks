@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'sinatra'
 gem 'mongo'
 gem 'json'
+gem 'oauth'
 
 group :development, :test do
   gem 'autotest'

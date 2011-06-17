@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title></title>
+  <title>Bookmarks</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -15,12 +15,12 @@
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="stylesheet" href="css/style.css">
   <script src="js/libs/modernizr-1.7.min.js"></script>
 
 </head>
 
-<body class="zoom4">
+<body>
 
   <div id="container">
     <header>
@@ -177,7 +177,7 @@
 								</div>
 
 							
-							
+						</form><!-- /prefs -->
 							<h3>Extend "favs"</h3>
 								<div class="guidebox">
 								<h4>Chrome extension</h4>
@@ -198,12 +198,55 @@
 						<h3>Account</h3>
 							Your are currently logged in as <a href="#">user</a>.
 							
+						<h3>DEVELOPER TESTS</h3>
+						<h4>Delicous user feed</h4>
+							<p> 
+								enter delicious username, then press enter<br />
+								<form id="test_delicous" action="#/post/del" method="PUT">
+									<input type="text" id="test_delicous_input" value="john" />
+								</form>
+							</p>
+							
+							
+							<h4>Bookmarklet</h4>
+							<p>
+
+							<!-- Begin JS for bookmarklet -->
+
+<a href="javascript:(function(){var%20d=document,w=window,e=w.getSelection,k=d.getSelection,x=d.selection,s=(e?e():(k)?k():(x?x.createRange().text:0)),f='http://127.0.0.1:9393/pop/save/',l=d.location,e=encodeURIComponent,g=f+'&title='+((e(s))?e(s):e(document.title))+'&url='+e(l.href);function%20a(){if(!w.open(g,'t','toolbar=0,resizable=0,scrollbars=1,status=1,width=650,height=470')){l.href=g;}}a();})()">Drag me on your toolbar (or just click to test, this will bookmark this page)</a>
+
+<!--
+that reads:
+(function () {
+    var d = document,
+        w = window,
+        e = w.getSelection,
+        k = d.getSelection,
+        x = d.selection,
+        s = (e ? e() : (k) ? k() : (x ? x.createRange().text : 0)),
+        f = 'http://127.0.0.1:9393/pop/?action=bookmarkpopup',
+        l = d.location,
+        e = encodeURIComponent,
+        g = f '&title=' ((e(s)) ? e(s) : e(document.title))'&url='
+    e(l.href);
+
+    function a() {
+        if (!w.open(g, 't', 'toolbar=0,resizable=0,scrollbars=1,status=1,width=650,height=470')) {
+            l.href = g;
+        }
+    }
+    a();
+})()
+
+-->
+
+
+							</p>
 						<h3>Learn how to:</h3>
 							<ul>
 								<li>Use the app on your mobile</li>
 								<li>Sync bookmarks across different browsers/devices</li>
 							</ul>
-
 
 							<h3>Feedback</h3>
 							<p> 
@@ -211,7 +254,6 @@
 								<a href="#/feedback">Tell us about it! We'd love to hear from you</a>
 							</p>
 							
-							</form>
 		</div>
     </div>
     <footer>
@@ -227,6 +269,13 @@
 
 	<script src="js/libs/sammy-0.6.3.min.js"></script>
 	<script src="js/sammy/plugins/sammy.template.js"></script>
+	<script src="js/sammy/plugins/sammy.storage.js"></script>
+	<script src="js/sammy/plugins/sammy.json.js"></script>
+	<script src="js/sammy/plugins/sammy.oauth2.js"></script>
+	<script src="js/sammy/plugins/sammy.json.js"></script>
+	<script src="js/sammy/plugins/sammy.title.js"></script>
+	
+	
 	<script src="js/libs/upload.js"></script>
 	<script src="js/script.js"></script>
 

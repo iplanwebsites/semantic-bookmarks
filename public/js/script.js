@@ -4,6 +4,10 @@
 
 debug = true;
 
+/* //////////////////////////////////////////////
+//// Functions (toolkit)
+///////////////////////////////////////////////*/
+
 function throttle(fn, delay) {
   var timer = null;
   return function () {
@@ -41,46 +45,102 @@ function isUrl(s) {
 	}
 }
 
+/* //////////////////////////////////////////////
+//// Sammy JS init
+///////////////////////////////////////////////*/
 
 $(document).ready(function() {
     
-
-	/*
-	On keypress,
-		we can't add a URL directly once we detect something that looks like an URL.
-		so we rather just "show" to the user that we recorganized this as a link:
-		We add the class "is_url" to the text-field (so the text now appears blue+underlined)
-	
-	*/
     
-    
-    /*
-    TODO: ovveride the form submit function in JS.
-    Posting to a sammy function clear the fields, trigger a page refresh, etc...
-    (not smooth now... )
-
-
-    
-    */
-    
-    
-    
-
 // initialize the application
 sammy = Sammy('#main', function() {
-  this.use('Template'); //this.use('Mustache');
+  this.use('Template');
+	this.use('Storage');
+	this.use('Session');
+	this.use('OAuth2');
+	this.use('Title');
+	this.use(Sammy.JSON);
   
+	this.oauthorize = "/oauth/authorize"; //the Oauth2 url - Sinatra
+	
 	// HOME
     this.get('#/', function(context) {
+			// alert("sam");
+			//Load preferences
+			
+
 					$('.activePage').removeClass('activePage show'); //removes the selected page...
 
 					//Todo: only load Ajax if it's not already there...
-					this.trigger('load-ajax');
+					this.trigger('load-ajax', {url: '/api/v1/delicious/feed'}); //default path: '/api/v1/delicious/feed'
 					this.trigger('show-page', {page: 'links'});
+					
+					
 		}); //end "get #/"
   
+///api/v1/delicious/feed/
+
+this.get('#/delicious/:user', function(context) {
+			$('.activePage').removeClass('activePage show'); //removes the selected page...
+
+			this.title('Delicious @'+this.params['user']);
+			//Todo: only load Ajax if it's not already there...
+			this.trigger('load-ajax', {url: '/api/v1/delicious/feed/'+this.params['user'] }); //'/api/v1/delicious/feed'
+			// this.trigger('show-page', {page: 'links'});
+			
+			
+}); //end "get #/"
+
+
+this.put('#/post/del', function() {
+				str = $('#test_delicous_input').val();
+				var path = '#/delicious/'+str;
+				this.redirect(path);
+        return false;
+      });
+
+
+
+/* //////////////////////////////////////////////
+//// AUTHentification  (oAuth)
+///////////////////////////////////////////////*/
+ 
+ // The quick & easy way
+ 	//this.requireOAuth();
+ // Specific path
+ 	// this.requireOAuth("/private");
+ // Filter you can apply to specific URLs
+ 	//this.before(function(context) { return context.requireOAuth(); })
+ // Apply to specific request
+ this.get("/private", function(context) {
+   this.requireOAuth(function() {
+			alert("you are logged in my friend!");
+     // Do something
+   });
+ });
+
+// Sign in/sign out.
+this.bind("oauth.connected", function() { $("#signin").hide() });
+this.bind("oauth.disconnected", function() { $("#signin").show() });
+
+// Handle access denied and other errors
+this.bind("oauth.denied", function(evt, error) {
+  this.partial("admin/views/no_access.tmpl", { error: error.message });
+});
+
+// Sign out.
+this.get("#/signout", function(context) {
+  context.loseAccessToken();
+  context.redirect("#/");
+});
+
+
+/* //////////////////////////////////////////////
+//// PAGES (modal)
+///////////////////////////////////////////////*/
     //Settings
     this.get('#/settings', function() {  
+							this.title('Settings');
 							/* $('.activePage').removeClass('activePage show');
 							 $('#settings').addClass('show activePage');
                $('#settings').addClass('show'); */
@@ -88,7 +148,8 @@ sammy = Sammy('#main', function() {
     });
 
 		//Feedback
-    this.get('#/feedback', function() {  
+    this.get('#/feedback', function() { 
+	 						this.title('Feedback');
 							this.trigger('show-page', {page: 'feedback'});
     });
 
@@ -97,7 +158,7 @@ sammy = Sammy('#main', function() {
 		this.bind('load-ajax', function(e, data) {
 						var context=this;
 						$.ajax({
-	              url: '/api/v1/delicious/feed', //won't work locally, be sure to run this unsing test server...
+	              url: data['url'], 
                   data: { count: 20 },
 	              dataType: 'json',
 	              success: function(items) {
@@ -171,11 +232,28 @@ sammy = Sammy('#main', function() {
     
 });// end sammy defs
 
+/* //////////////////////////////////////////////
+//// Initialization
+///////////////////////////////////////////////*/
 
     // start the application
  		sammy.run('#/');
-    
+		
 
+		//Init Cookie
+		sammy.cookie = new Sammy.Store({name: 'prefs', type: 'cookie'});
+		var zoom = sammy.cookie.get('zoom_level');
+		if(zoom != undefined){
+			$('#zoom_level').val(zoom);
+			$('body').addClass('zoom'+zoom);
+		}
+		
+		
+		
+/* //////////////////////////////////////////////
+//// Binding Actions
+///////////////////////////////////////////////*/
+		
 		//Zoom-Level
 		if (!Modernizr.inputtypes.range) {
 				$('#zoom_level').hide(0);
@@ -183,9 +261,11 @@ sammy = Sammy('#main', function() {
 		  	// maybe try Dojo or some other JavaScript framework
 		}else{
 			$('#zoom_level').change(function(){
-				var className = 'zoom' + $(this).val();
+				var val = $(this).val();
+				var className = 'zoom' + val;
 				$('body').removeClass('zoom1 zoom2 zoom3 zoom4 zoom5 zoom6 zoom7')
 				$('body').addClass(className);
+				sammy.cookie.set('zoom_level', val); //and save it to the cookie...
 			});
 			
 		}
@@ -212,6 +292,9 @@ sammy = Sammy('#main', function() {
 					}
 				});
 				
+		
+
+
 //Keypress txt-field
 $('#q').bind('keypress keyup change focus click', function() {
 	sammy.trigger('filter-item');
