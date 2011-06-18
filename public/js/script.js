@@ -110,7 +110,7 @@ this.put('#/post/q', function(context) {
 
 	//delicious user (test form)
 	this.put('#/post/del', function() {
-			str = $('#test_delicous_input').val();
+			str = this.params['user']; //delicious login...
 			var path = '#/delicious/'+str;
 			this.redirect(path);
 			return false;

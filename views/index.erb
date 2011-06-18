@@ -63,9 +63,13 @@
 			<h4>Delicious User?</h4>
 			<p>Instantly browse and filter your existing collection.</p>
 			
-			<label>Delicious Username:</label>
-			<input type="text" value="" placeholder="ex: bob43" />
-			<input type="button" value="import it" />
+			
+			<form id="test_delicous" action="#/post/del" method="PUT">
+				<label for="delicious_try">Delicious Username:</label>
+				<input type="text" id="delicious_try" name="user" placeholder="ex: bob43" value="" />
+				<input type="submit" value="import it" />
+			</form>
+			
 			<p>Please note that private bookmarks won't be imported (for obvious reasons). If you plan on moving your private delicious collection, <a href="#">follow these few extra steps</a></p>
 		</div>
 		<div class="clear"></div>
@@ -245,7 +249,7 @@
 							<p> 
 								enter delicious username, then press enter<br />
 								<form id="test_delicous" action="#/post/del" method="PUT">
-									<input type="text" id="test_delicous_input" value="john" />
+									<input type="text" id="test_delicous_input" name="user" value="john" />
 								</form>
 							</p>
 							
