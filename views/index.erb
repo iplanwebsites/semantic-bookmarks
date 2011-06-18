@@ -22,21 +22,63 @@
 
 <body>
 
+<!-- Static elements -->
+	<div id="bottom_toolbar">
+		<input type="range"  min="1" max="7" id="zoom_level" value="4" />
+	</div>
+	
+	<div id="login_toolbar">
+		<form id="login_form" action="#/post/login"  method="PUT">
+			<input type="text" name="login" placeholder="login" />
+			<input type="password" name="pass" placeholder="pass"  />
+			<input type="submit" value="go!" />
+		</form>
+	</div>
+
+
   <div id="container">
+	
+	<div id="promo_header">
+		<h1>
+		fav organizes	the websites you love, and helps you find and discover new relevant ones.
+		</h1>
+		<h3>(simple, free, no ads)</h3>
+		
+		<div class="box">
+			<h4>Seeing is believing</h4>
+			<p>Give our app a shot by browse popular and trending websites</p>
+			<!-- todo: image of arrow leading to main field -->
+		</div>
+		
+		<div class="box">
+			<h4>Import Chrome bookmarks</h4>
+			<p>Get started right away by loading your chrome bookmark file</p>
+			<li>1. click the wrench icon</li>
+			<li>2. export, and save</li> <!-- todo: bring accurate procedure... -->
+			<input type="button" value="upload" />
+			<!-- todo: image of arrow leading to main field -->
+		</div>
+		
+		<div class="box">
+			<h4>Delicious User?</h4>
+			<p>Instantly browse and filter your existing collection.</p>
+			
+			<label>Delicious Username:</label>
+			<input type="text" value="" placeholder="ex: bob43" />
+			<input type="button" value="import it" />
+			<p>Please note that private bookmarks won't be imported (for obvious reasons). If you plan on moving your private delicious collection, <a href="#">follow these few extra steps</a></p>
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	<!-- Main Header (search) -->
     <header>
 
-		<div id="bottom_toolbar">
-			<input type="range"  min="1" max="7" id="zoom_level" value="4" />
-		</div>
-		
-		<div id="login_toolbar">
-			<form id="login_form" action="#/post/login"  method="PUT">
-				<input type="text" name="login" placeholder="login" />
-				<input type="password" name="pass" placeholder="pass"  />
-				<input type="submit" value="go!" />
-			</form>
-		</div>
-		
 		<a href="#/" id="logo">
 			<h1>favs</h1>
 		</a>

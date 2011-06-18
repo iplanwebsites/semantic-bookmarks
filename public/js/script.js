@@ -90,6 +90,24 @@ this.get('#/delicious/:user', function(context) {
 //// Form Put Routes
 ///////////////////////////////////////////////*/
 
+
+
+// Main field submit
+this.put('#/post/q', function(context) {
+	sammy.trigger('show-page', {page: 'links'});
+	str = this.params['q'];
+	if( isUrl( str ) ) {	//check if it's a URL... //change style accordingly...
+		sammy.trigger('add-url', {url: str});//add URL
+		this.title('added: "'+str+'"');
+	}else{
+		//TODO improve parsing logic (if there's a semantic keyword, use it!)
+		this.title('filter: '+str);
+		sammy.trigger('filter-item');
+	}
+	return false; //event.preventDefault(); 
+});
+
+
 	//delicious user (test form)
 	this.put('#/post/del', function() {
 			str = $('#test_delicous_input').val();
@@ -108,21 +126,6 @@ this.get('#/delicious/:user', function(context) {
     return false;
 	});
 
-
-// Main field submit
-this.put('#/post/q', function(context) {
-	sammy.trigger('show-page', {page: 'links'});
-	str = this.params['q'];
-	if( isUrl( str ) ) {	//check if it's a URL... //change style accordingly...
-		sammy.trigger('add-url', {url: str});//add URL
-		this.title('added: "'+str+'"');
-	}else{
-		//TODO improve parsing logic (if there's a semantic keyword, use it!)
-		this.title('filter: '+str);
-		sammy.trigger('filter-item');
-	}
-	return false; //event.preventDefault(); 
-});
 
 /* //////////////////////////////////////////////
 //// AUTHentification  (oAuth) - missing a provider...
