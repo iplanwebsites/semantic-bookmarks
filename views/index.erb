@@ -30,7 +30,7 @@
 		</div>
 		
 		<div id="login_toolbar">
-			<form action="#/login"  method="post" id="login_form">
+			<form id="login_form" action="#/post/login"  method="PUT">
 				<input type="text" name="login" placeholder="login" />
 				<input type="password" name="pass" placeholder="pass"  />
 				<input type="submit" value="go!" />
@@ -41,7 +41,7 @@
 			<h1>favs</h1>
 		</a>
 
-		<form action="#/"  method="post" id="search_form">
+		<form action="#/post/q"  method="PUT" id="search_form">
 			<div class="clear-val">×</div>
 			<input name="q" id="q" placeholder="keywords  -  url" type="search" />
 			<span>
@@ -158,7 +158,7 @@
 								<div class="guidebox">
 									<h4>2. Upload the file</h4>
 									<p>Now select the file you just saved.</p>
-									<form id="form_upload" enctype="multipart/form-data" method="post" action="#/api/import/file">
+									<form id="form_upload" enctype="multipart/form-data" method="PUT" action="#/api/import/file">
 									    <div class="row">
 									      <label for="fileToUpload">Select a File to Upload</label><br />
 									      <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>

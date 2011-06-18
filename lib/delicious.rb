@@ -1,8 +1,13 @@
 require 'rubygems'
 require 'bundler/setup'
 
+#require "digest/sha1"
 require 'sinatra'
+require 'mongo_mapper'
+require "sinatra-authentication"
 require_relative 'helpers'
+
+use Rack::Session::Cookie, :secret => 'A1 sauce 1s so good you should use 1t on a11 yr st34ksssss'
 
 delicious_url = 'http://feeds.delicious.com/v2/json'
 

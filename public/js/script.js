@@ -53,7 +53,7 @@ $(document).ready(function() {
     
     
 // initialize the application
-sammy = Sammy('#main', function() {
+sammy = Sammy('body', function() {
   this.use('Template');
 	this.use('Storage');
 	this.use('Session');
@@ -61,48 +61,71 @@ sammy = Sammy('#main', function() {
 	this.use('Title');
 	this.use(Sammy.JSON);
   
-	this.oauthorize = "/oauth/authorize"; //the Oauth2 url - Sinatra
+	this.oauthorize = "/oauth/authorize"; //the Oauth2 url - Sinatra?
 	
 	// HOME
     this.get('#/', function(context) {
 			// alert("sam");
 			//Load preferences
-			
-
+					this.title('favs');
+					$('#q').focus();//Set focus on field
 					$('.activePage').removeClass('activePage show'); //removes the selected page...
 
 					//Todo: only load Ajax if it's not already there...
 					this.trigger('load-ajax', {url: '/api/v1/delicious/feed'}); //default path: '/api/v1/delicious/feed'
 					this.trigger('show-page', {page: 'links'});
-					
-					
 		}); //end "get #/"
   
-///api/v1/delicious/feed/
-
+//Delicious User feed
 this.get('#/delicious/:user', function(context) {
 			$('.activePage').removeClass('activePage show'); //removes the selected page...
-
 			this.title('Delicious @'+this.params['user']);
+			sammy.trigger('show-page', {page: 'links'});
 			//Todo: only load Ajax if it's not already there...
 			this.trigger('load-ajax', {url: '/api/v1/delicious/feed/'+this.params['user'] }); //'/api/v1/delicious/feed'
 			// this.trigger('show-page', {page: 'links'});
-			
-			
-}); //end "get #/"
-
-
-this.put('#/post/del', function() {
-				str = $('#test_delicous_input').val();
-				var path = '#/delicious/'+str;
-				this.redirect(path);
-        return false;
-      });
-
-
+}); 
 
 /* //////////////////////////////////////////////
-//// AUTHentification  (oAuth)
+//// Form Put Routes
+///////////////////////////////////////////////*/
+
+	//delicious user (test form)
+	this.put('#/post/del', function() {
+			str = $('#test_delicous_input').val();
+			var path = '#/delicious/'+str;
+			this.redirect(path);
+			return false;
+		});
+
+//Login Form
+	this.put('#/post/login', function(context) {
+		//TODO JS validation here.
+		// submit login + pass to the server.
+		// write feedback to user (either error message, or log him in);
+		alert('login: ' + this.params['login'] + ' & '+ this.params['pass']);
+		//this.redirect('#/login/ok/'+this.params['login']);
+    return false;
+	});
+
+
+// Main field submit
+this.put('#/post/q', function(context) {
+	sammy.trigger('show-page', {page: 'links'});
+	str = this.params['q'];
+	if( isUrl( str ) ) {	//check if it's a URL... //change style accordingly...
+		sammy.trigger('add-url', {url: str});//add URL
+		this.title('added: "'+str+'"');
+	}else{
+		//TODO improve parsing logic (if there's a semantic keyword, use it!)
+		this.title('filter: '+str);
+		sammy.trigger('filter-item');
+	}
+	return false; //event.preventDefault(); 
+});
+
+/* //////////////////////////////////////////////
+//// AUTHentification  (oAuth) - missing a provider...
 ///////////////////////////////////////////////*/
  
  // The quick & easy way
@@ -188,10 +211,9 @@ this.get("#/signout", function(context) {
 			this.bind('show-page', function(e, data) {
 						var context=this;
 						pageId = data['page'];
-						
-						//if we link to main filter, and if there's an other active page (pop-up), redirect to home!
 						if((pageId =='links') && ($('.activePage').attr('id') != "links")){
-							 sammy.setLocation('#/');
+							 //sammy.setLocation('#/');
+							// this was too heavy, we should just swap active page, not redirect
 						}
 						
 						if(pageId != $('.activePage').attr('id')){ //if we want a different page than the curent one.
@@ -248,13 +270,12 @@ this.get("#/signout", function(context) {
 			$('body').addClass('zoom'+zoom);
 		}
 		
-		
-		
+			
 /* //////////////////////////////////////////////
-//// Binding Actions
+//// Binding Actions to DOM elements
 ///////////////////////////////////////////////*/
 		
-		//Zoom-Level
+		//Zoom-Level slider
 		if (!Modernizr.inputtypes.range) {
 				$('#zoom_level').hide(0);
 		  	// no native support for type=number fields
@@ -267,7 +288,6 @@ this.get("#/signout", function(context) {
 				$('body').addClass(className);
 				sammy.cookie.set('zoom_level', val); //and save it to the cookie...
 			});
-			
 		}
 		
 		
@@ -276,23 +296,6 @@ this.get("#/signout", function(context) {
 				$('#q').val('').focus();
 				sammy.trigger('filter-item');
 		});
-		
-//Form submit
-				$('#search_form').submit(function(event) {
-					event.preventDefault(); 
-					sammy.trigger('show-page', {page: 'links'});
-
-					str = $('#q').val();
-					if( isUrl( str ) ) {	//check if it's a URL... //change style accordingly...
-						sammy.trigger('add-url');//add URL
-					}else{
-						//maybe query the server? (it's submitted...)
-						//sammy.trigger('reload-server');
-						sammy.trigger('filter-item');
-					}
-				});
-				
-		
 
 
 //Keypress txt-field
@@ -300,17 +303,29 @@ $('#q').bind('keypress keyup change focus click', function() {
 	sammy.trigger('filter-item');
 	sammy.trigger('show-page', {page: 'links'});
 			throttle(function (event) {
-				//TODO: contact server here.
+				//TODO: contact server here?
     	}, 150);
 });
-    
+
+//logo click (clear the field, redirect to home.)
+$('#logo').bind('click touch', function() {
+	$('#q').val('').focus();//clear the search field
+	sammy.setLocation('#/');
+	sammy.trigger('show-page', {page: 'links'});
+	sammy.setTitle('favs'); //just in case we're already on the main view...
+	return false;
+});
+
+//Settings page, instructions menu
 $('#browser_menu').bind('change', function() {
 	var val = $('#browser_menu').val();
 	$('.import_instruction.open').removeClass('open');//remove open class to old element...
 	$('.import_instruction.'+val).addClass('open');//Add open class to new one
 });
 
-	$('#feedback').bind('click', function() {
+//exit the feedback form on click
+//TODO: propper exiting...
+$('#feedback').bind('click', function() {
 		sammy.setLocation('#/'); //doesn't populate the history stack correctly...
 	});
 });//document ready...

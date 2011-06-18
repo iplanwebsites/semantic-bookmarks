@@ -179,6 +179,9 @@ header .hr{ border-bottom: 1px dashed #ccc; clear:both; padding-top:30px;
 	overflow:hidden;
 }
 
+.item a, a.url{ color:#0E774A; text-decoration:none;}
+.item a:hover, a.url:hover{ color:#0E774A; text-decoration:underline;}
+
 .item.out{ opacity:0; height:0px; width:0px; margin:0px; padding:0px; color:#fff;}
 .item img{ width:100%; height:auto; }
 	

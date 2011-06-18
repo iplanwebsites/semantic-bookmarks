@@ -10,7 +10,9 @@
 * Connect to a mongoHQ database
 * Design basic mongo collections (bookmark & user)
 * DIO - Authentication module, login, retrieve password, etc (no facebook/twitter sign-on for now)
-	* Auth-ruby gem let's us create OAUTH provider (that would be the perfect option, since there's no viable OAUTH2 provider gem yet): https://github.com/oauth/oauth-ruby
+	* Auth-ruby gem let's us create OAUTH provider (that would a nice option, possibly overkill...
+	, https://github.com/oauth/oauth-ruby)
+	* More straight forward: sinatra-authentification gem handles everything: https://github.com/maxjustus/sinatra-authentication
 * Save and retrieve bookmarks from database (instead of the delicious feed)
 * Remove a bookmarks from a specific user feed.
 * Retrieve basic site bookmarks metadata (title, meta desc, keywords, etc)
