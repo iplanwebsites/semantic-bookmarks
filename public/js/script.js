@@ -326,12 +326,45 @@ $('#browser_menu').bind('change', function() {
 	$('.import_instruction.'+val).addClass('open');//Add open class to new one
 });
 
+
+//Settings page, instructions menu
+$('#promo_header .box').hover(
+  function () {
+		$('#promo_header .box').addClass("not_hover");
+		$(this).removeClass("not_hover");
+    $(this).addClass("hover");
+  },
+  function () {
+    $(this).removeClass("hover");
+		$('#promo_header .box').removeClass("not_hover");
+  }
+);
+
+
+$('#bt_try_now').bind('click touch', function() {
+		//sammy.setLocation('#/'); //doesn't populate the history stack correctly...
+		$.scrollTo( 'header', 400 );
+		return false;
+});
+
+
+$('.bt_fake_upload').bind('click touch', function() {
+	$(this).siblings('input[type="file"]').trigger('click')
+	//$('#real_upload').trigger('click');
+});
+
+
+$('#home_file_upload').bind('change', function() {
+	alert('ok! we submit the form (file) to a sammy route, then sinatra API, and display progress...');
+});
+
+
 //exit the feedback form on click
 //TODO: propper exiting...
-$('#feedback').bind('click', function() {
+$('#feedback').bind('click touch', function() {
 		sammy.setLocation('#/'); //doesn't populate the history stack correctly...
 	});
-});//document ready...
+}); // eo document ready.
 
 
 
