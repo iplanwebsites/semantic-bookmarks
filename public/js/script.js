@@ -356,6 +356,9 @@ $('.bt_fake_upload').bind('click touch', function() {
 
 $('#home_file_upload').bind('change', function() {
 	alert('ok! we submit the form (file) to a sammy route, then sinatra API, and display progress...');
+// TODO: parent form. submit...
+//map a corersponding sammy put route...
+
 });
 
 
