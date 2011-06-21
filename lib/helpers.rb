@@ -3,6 +3,7 @@ require 'net/http'
 
 module Helpers
   def get_url(url)
+    # TODO: use em-http-request and fibers to make this non-blocking
     Net::HTTP.get_response(URI.parse(url))
   end
 
