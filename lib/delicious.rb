@@ -1,79 +1,70 @@
-require 'rubygems'
-require 'bundler/setup'
+require 'sinatra/base'
 
-#require "digest/sha1"
-require 'sinatra'
-require 'mongo_mapper'
-require "sinatra-authentication"
 require_relative 'helpers'
-
-use Rack::Session::Cookie, :secret => 'A1 sauce 1s so good you should use 1t on a11 yr st34ksssss'
-
-delicious_url = 'http://feeds.delicious.com/v2/json'
-
-helpers Helpers
-
-set :views, File.join(File.dirname(__FILE__), '..', 'views')
-
-get '/' do
-  erb :index
-end
 
 # All delicious feeds accept a count parameter
 # ?count={1..100} to limit the number of results (default 15)
 
-# Filters
-before '/api/v1/delicious/feed*' do
-  @count = count_param(params[:count])
-end
+module Delicious
+  class FeedsApp < Sinatra::Base
+    helpers Helpers
 
-after '/api/v1/delicious/feed*' do
-  content_type :json
-end
+    delicious_url = 'http://feeds.delicious.com/v2/json'
 
-# Hotlist bookmarks
-get '/api/v1/delicious/feed' do
-  result = get_json "#{delicious_url}#{@count}"
-  # TODO: tweak the response, thumbnail links, etc.
-  result.to_json
-end
+    # Filters
+    before '/feed*' do
+      @count = count_param(params[:count])
+    end
 
-# Recent bookmarks
-get '/api/v1/delicious/feed/recent' do
-  result = get_json "#{delicious_url}/recent#{@count}"
-  result.to_json
-end
+    after '/feed*' do
+      content_type :json
+    end
 
-# Bookmarks by tags
-get '/api/v1/delicious/feed/tag/:tags' do |tags|
-  result = get_json "#{delicious_url}/tag/#{tags.split.join '+'}#{@count}"
-  result.to_json
-end
+    # Hotlist bookmarks
+    get '/feed' do
+      result = get_json "#{delicious_url}#{@count}"
+      # TODO: tweak the response, thumbnail links, etc.
+      result.to_json
+    end
 
-# Popular bookmarks
-get '/api/v1/delicious/feed/popular' do
-  result = get_json "#{delicious_url}/popular#{@count}"
-  result.to_json
-end
+    # Recent bookmarks
+    get '/feed/recent' do
+      result = get_json "#{delicious_url}/recent#{@count}"
+      result.to_json
+    end
 
-# Popular bookmarks by tag
-get '/api/v1/delicious/feed/popular/:tag' do |tag|
-  result = get_json "#{delicious_url}/popular/#{tag}#{@count}"
-  result.to_json
-end
+    # Bookmarks by tags
+    get '/feed/tag/:tags' do |tags|
+      result = get_json "#{delicious_url}/tag/#{tags.split.join '+'}#{@count}"
+      result.to_json
+    end
 
-# User's public bookmarks
-get '/api/v1/delicious/feed/:username' do |username|
-  result = get_json "#{delicious_url}/#{username}#{@count}"
-  result.to_json
-end
+    # Popular bookmarks
+    get '/feed/popular' do
+      result = get_json "#{delicious_url}/popular#{@count}"
+      result.to_json
+    end
 
-#User's public bookmakrs by tags
-get '/api/v1/delicious/feed/:username/:tags' do |username, tags|
-  result = get_json "#{delicious_url}/#{username}/#{tags.split.join '+'}#{@count}"
-  result.to_json
-end
+    # Popular bookmarks by tag
+    get '/feed/popular/:tag' do |tag|
+      result = get_json "#{delicious_url}/popular/#{tag}#{@count}"
+      result.to_json
+    end
 
-not_found do
-  halt 404, 'Page not found'
+    # User's public bookmarks
+    get '/feed/:username' do |username|
+      result = get_json "#{delicious_url}/#{username}#{@count}"
+      result.to_json
+    end
+
+    #User's public bookmakrs by tags
+    get '/feed/:username/:tags' do |username, tags|
+      result = get_json "#{delicious_url}/#{username}/#{tags.split.join '+'}#{@count}"
+      result.to_json
+    end
+
+    not_found do
+      halt 404, 'Page not found'
+    end
+  end
 end
