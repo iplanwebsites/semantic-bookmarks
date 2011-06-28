@@ -11,6 +11,10 @@ class SemanticBookmarksApp < Sinatra::Base
   get '/' do
     erb :index
   end
+  
+  get '/alpha' do #once session and invite system will work, we can merge this in the main URL and toggle
+    erb :alpha
+  end
 
   not_found do
     halt 404, 'Page not found'

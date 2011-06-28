@@ -193,7 +193,7 @@ this.get("#/signout", function(context) {
 	                  //context.partial('templates/link.template');
 										
 										
-										context.linkContainer = context.$element('#links');
+										context.artistpage = context.$element('#page_artist');
 										$(context.linkContainer).html('');
 	                  context.render('templates/link.template', {item: item})
 	                                 .appendTo(context.linkContainer).then(function(content) {
